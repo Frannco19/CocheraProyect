@@ -1,2 +1,50 @@
-<p>state-garage works!</p>
-<a [routerLink]="['/login']" > Cerrar Sesion</a>
+<header>
+    <div class="header-container">
+      <h1>PARKING APP</h1>
+      <div class="right-section">
+        <h2>ESTADO DE COCHERAS</h2>
+        <img src="ruta-del-logo.png" alt="Logo de Cocheras" class="logo">
+      </div>
+    </div>
+  </header>
+
+<main>
+    @if (Garages.length !== 0) {
+    <table>
+        <thead>
+            <td>N</td>
+            <td>Disponibilidad</td>
+            <td>Ingreso</td>
+            <td>Accion</td>
+        </thead>
+        <tbody>
+            @for (Garage of Garages; track $index){
+            <tr>
+                <td>{{Garage.numero}}</td>
+                <td [ngClass]="{'disponible': Garage.disponible, 'ocupado': !Garage.disponible}">
+                    {{ Garage.disponible ? 'Disponible' : 'Ocupado' }}
+                 </td>
+                <td>{{Garage.disponible}}</td>
+                <td>{{Garage.ingreso}}</td>
+                <td>
+                    @if (Garage.disponible){
+                    <button (click)="disableGarage($index)">Deshabilitar</button>
+                    }@else{
+                    <button (click)="ableGarage($index)">Habilitar</button>
+                    }
+                    <button (click)="deleteGarage($index)">Borrar</button>
+                </td>
+            } @empty {
+                <button (click)="AddGarage()">Agrega una cochera</button>
+                }
+        </tbody>
+    </table>
+    } @else {
+    <button (click)="AddGarage()">Agregar una cochera</button>
+    }
+    <button (click)="updateGarage()">Borrar Todo</button>
+    <button (click)="AddGarage()">+</button>
+
+    <a [routerLink]="['/login']"> Cerrar Sesion</a>
+
+</main>
