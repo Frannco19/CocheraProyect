@@ -1,7 +1,8 @@
 <main>
-    <section>
+    <section class="login-container">
         <section class="login">
             <header>
+                <h1 class="loginTitle"> PARKING APP</h1>
                 <h1 class="loginTitle"> Iniciar Sesion</h1>
             </header>
             <section class="loginContent">
@@ -16,10 +17,13 @@
                             <input type="password" id="password" name="password" required>
                         </div>
                     </section>
-                    
+
                     <section class="loginbutton">
                         <div class="buttonLog">
-                            <button [routerLink]="['/state-garage']"> <span> Iniciar Sesion </span></button>
+                            <button type="button" (click)="login()"> <span> Iniciar Sesion </span></button>
+                            @if(errorLogin){
+                                <p>Erro en login</p>
+                            }
                         </div>
                     </section>
                 </form>
@@ -28,5 +32,10 @@
                 <a href="">Registrarse</a>
             </footer>
         </section>
+
+        <section class="WelcomeLogin">
+            <h2>¡Bienvenido Usuario!</h2>
+        </section>
+
     </section>
 </main>

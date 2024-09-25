@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Garage } from '../../interfaces/garage';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { DataGaragesService } from '../../services/data-garages.service';
+import { DataAuthService } from '../../services/data-auth.service';
 @Component({
   selector: 'app-state-garage',
   standalone: true,
@@ -11,48 +14,55 @@ import { CommonModule } from '@angular/common';
 })
 export class StateGarageComponent {
   titulo = "PARKING APP";
+  esAdmin = true
 
-  headerTable = {
+  Garages: Garage[] = []
+
+  dataGarageServices = inject(DataGaragesService)
+
+  constructor() {
+
   }
 
-  Garages: Garage[] = [{
-    numero: 1,
-    disponible: false,
-    ingreso: '-',
-    acciones: ""
+  updateGarage(index: number) {
+    this.dataGarageServices.updateGarage(index);
   }
 
-  ]
-
-  updateGarage() {
-    this.Garages = []
+  deleteGarage(index: number) {
+    this.dataGarageServices.Garages.splice(index, 1);
   }
 
-  deleteGarage(index:number){
-    this.Garages.splice(index,1);
-  }
-
-  ultimoNumero = this.Garages[this.Garages.length - 1].numero || 0;
   AddGarage() {
-    this.Garages.push({
-      numero: this.ultimoNumero + 1,
-      disponible: true,
-      ingreso: '-',
-      acciones: ""
-    })
-    this.ultimoNumero++;
+    this.dataGarageServices.AddGarage();
   }
 
-  disableGarage($index:number){
-    this.Garages[$index].disponible = false;
+  disableGarage($index: number) {
+    this.dataGarageServices.disableGarage($index);
   }
 
-  ableGarage($index:number){
-    this.Garages[$index].disponible = true;
+  ableGarage($index: number) {
+    this.dataGarageServices.ableGarage($index);
   }
 
+  questionDeleteGarage(index: number) {
+    Swal.fire({
+      title: "¿Deseas eliminar la cochera?",
+      text: "Se eliminara el registro de la cochera",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.dataGarageServices.Garages.splice(index, 1)
+        Swal.fire({
+          title: "Eliminado!",
+          text: "La cochera ha sido eliminada.",
+          icon: "success"
+        });
+      }
+    });
+  }
 
 }
-
-
-

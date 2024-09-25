@@ -1,0 +1,25 @@
+header {
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    color: blue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-bottom: 5px solid blue;
+    padding-bottom: 10px; 
+}
+
+.link-active{
+    color: blue;
+    font-weight: bold;
+}
