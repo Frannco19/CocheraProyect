@@ -2,7 +2,7 @@
     @if (dataGarageServices.Garages.length != 0) {
     <table>
         <thead>
-            <td>N</td>
+            <td>N°</td>
             <td>Disponibilidad</td>
             <td>Ingreso</td>
             <td>Accion</td>
@@ -30,7 +30,7 @@
     </table>
 
     @if(esAdmin){
-        <button (click)="AddGarage()">Agregar una cochera</button>
+        <button class="buttonAddGarage"(click)="AddGarage()">+</button>
     }
 }
 </main>
