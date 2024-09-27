@@ -1,71 +1,10 @@
 
-table {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: auto;
-    width: 85%;
-    border-collapse: collapse;
-    border-spacing: 0 10px;
+@use "./../../../../public/styles/tables.scss";
 
-
-    >thead,
-    tr {
-        display: grid;
-        grid-template-columns: 50px 1fr 1fr 1fr;
-        justify-items: center;
-    }
-
-    td {
-        font-weight: bold;
-    }
-
-    tbody tr {
-        border-bottom: 1px solid #ccc;
-    }
-
-    tbody td {
-        padding: 10px;
-    }
-
-    button {
-        margin-right: 5px;
-    }
+h1{
+    color: red;
 }
 
-.able {
-    background-color: green;
-}
-
-
-.disponible {
-    background-color: #1ddf4a;
-    color: white;
-    padding: 5px 40px;
-    border-radius: 50px;
-    text-align: center;
-    display: inline-block;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.ocupado {
-    background-color: #dc3545;
-    color: white;
-    padding: 5px 40px;
-    border-radius: 50px;
-    text-align: center;
-    display: inline-block;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-
-.buttonAddGarage{
-    display: flex;
-    padding: 0.50rem;
-    border: none;
-    border-radius: 8px;
-    color: rgb(0, 0, 0);
-    font-size: 1rem;
-    background-color: blue;
+#agregar-cochera{
     margin: auto;
 }

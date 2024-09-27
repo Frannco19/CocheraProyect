@@ -40,21 +40,18 @@ export class DataGaragesService {
     console.log(this.Garages)
   }
 
-  updateGarage(index:number) {
-    this.Garages = []
-  }
 
-  deleteGarage(index: number) {
+  deleteGarage(index:number) {
     this.Garages.splice(index, 1);
   }
 
 
-  disableGarage($index: number) {
-    this.Garages[$index].deshabilitado = 1;
+  disableGarage(index:number) {
+    this.Garages[index].deshabilitado = 1;
   }
 
-  ableGarage($index: number) {
-    this.Garages[$index].deshabilitado = 0;
+  ableGarage(index:number) {
+    this.Garages[index].deshabilitado = 0;
   }
 
 }

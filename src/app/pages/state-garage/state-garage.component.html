@@ -1,4 +1,4 @@
-<main>
+<main class="flex-column-center">
     @if (dataGarageServices.Garages.length != 0) {
     <table>
         <thead>
@@ -11,18 +11,18 @@
             @for (Garage of dataGarageServices.Garages; track $index){
             <tr>
                 <td>{{Garage.id}}</td>
-                <td [ngClass]="{'disponible': Garage.deshabilitado, 'ocupado': !Garage.descripcion}">
+                <td [ngClass]="{'disponible': Garage.deshabilitado, 'ocupado': !Garage.deshabilitado}">
                     {{ Garage.deshabilitado ? 'Disponible' : 'Ocupado' }}
                 </td>
                 <td>{{Garage.descripcion}}</td>
-                <td>  
-                    @if (Garage.deshabilitado){
-                    <button (click)="disableGarage($index)">Deshabilitar</button>
+                <td class="acciones-container">  
+                    @if (!Garage.deshabilitado){
+                    <button (click)="disableGarage($index)"><img src="img/icons/prohibido.png" alt="Deshabilitar cochera"></button>
                     }@else{
-                    <button (click)="ableGarage($index)">Habilitar</button>
+                    <button (click)="ableGarage($index)"><img src="img/icons/ok.png" alt="Habilitar cochera"></button>
                     }
                     @if(esAdmin){
-                    <button (click)="questionDeleteGarage($index)">Borrar</button>
+                    <button (click)="questionDeleteGarage($index)"><img src="img/icons/contenedor-de-basura.png" alt="Eliminar cochera"></button>
                     }
                 </td>
                 }

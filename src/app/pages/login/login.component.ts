@@ -2,24 +2,24 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Login, ResLogin } from '../../interfaces/login';
 import { DataAuthService } from '../../services/data-auth.service';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
 
   authService = inject(DataAuthService)
+  router = inject(Router);
 
   LoginData: Login = {
     username: "admin",
     password: "admin"
   }
-
-  router = inject(Router);
 
   // login(){
   //   fetch('http://localhost:4000/login',{
@@ -37,7 +37,9 @@ export class LoginComponent {
   //   console.log("Despues del fetch")
   // }
   errorLogin = false
-  async login() {
+  async login(loginForm: NgForm) {
+    const {usuario,password} = loginForm.value;
+    const logimData : Login = {username: usuario,password}
     const res = await this.authService.login(this.LoginData)
     if(res?.status === "ok") this.router.navigate(['/state-garage']);
     else this.errorLogin = true;

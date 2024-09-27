@@ -24,24 +24,20 @@ export class StateGarageComponent {
 
   }
 
-  updateGarage(index: number) {
-    this.dataGarageServices.updateGarage(index);
-  }
-
-  deleteGarage(index: number) {
-    this.dataGarageServices.Garages.splice(index, 1);
+  deleteGarage(index:number) {
+    this.dataGarageServices.Garages.splice(index, 1)
   }
 
   AddGarage() {
-    this.dataGarageServices.AddGarage();
+    this.dataGarageServices.AddGarage()
   }
 
-  disableGarage($index: number) {
-    this.dataGarageServices.disableGarage($index);
+  disableGarage($index:number) {
+    this.dataGarageServices.disableGarage($index)
   }
 
-  ableGarage($index: number) {
-    this.dataGarageServices.ableGarage($index);
+  ableGarage($index:number) {
+    this.dataGarageServices.ableGarage($index)
   }
 
   questionDeleteGarage(index: number) {

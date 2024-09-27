@@ -6,3 +6,18 @@ html, body {
     height: 100%;
     overflow: hidden;
 }
+
+img{
+    margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+.flex-column-center{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
