@@ -12,17 +12,32 @@
                             <label for="username">Usuario </label>
                             <input type="text" id="username" placeholder="Usuario" name="usuario" ngModel required>
                         </div>
-                        <div>
+                        <div class="input-container">
                             <label for="password">Contraseña</label>
-                            <input type="password" id="password" placeholder="Contraseña" name="password" ngModel required>
-                        </div>
+                            <input 
+                              [type]="showPassword ? 'text' : 'password'" 
+                              id="password" 
+                              placeholder="Contraseña" 
+                              name="password" 
+                              ngModeñ
+                              required>
+                            
+                            <button type="button" (click)="togglePasswordVisibility()">
+                              <img 
+                                [src]="showPassword ? 'img/icons/prohibido.png' : 'img/icons/ok.png'" 
+                                alt="Toggle Password Visibility" 
+                                style="width: 25px; height: 25px;">
+                            </button>
+                          </div>
+                          
                     </section>
 
                     <section class="loginbutton">
                         <div class="buttonLog">
-                            <button [disabled]="loginForm.invalid" class="button" type="submit"><span> Iniciar Sesion </span></button>
+                            <button [disabled]="loginForm.invalid" class="button" type="submit"><span> Iniciar Sesion
+                                </span></button>
                             @if(errorLogin){
-                                <p>Erro en login</p>
+                            <p>Erro en login</p>
                             }
                         </div>
                     </section>
@@ -30,7 +45,7 @@
             </section>
             <footer>
                 <p class="footer-description">¿Todavia no estas registrado?</p>
-                <a class="buttonRegister"href="">Registrarse</a>
+                <a class="buttonRegister" href="">Registrarse</a>
             </footer>
         </section>
 

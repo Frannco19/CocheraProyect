@@ -15,10 +15,15 @@ export class LoginComponent {
 
   authService = inject(DataAuthService)
   router = inject(Router);
+  showPassword: boolean = false; 
 
   LoginData: Login = {
     username: "admin",
     password: "admin"
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   // login(){
