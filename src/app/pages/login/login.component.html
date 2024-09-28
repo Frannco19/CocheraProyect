@@ -14,31 +14,21 @@
                         </div>
                         <div class="input-container">
                             <label for="password">Contraseña</label>
-                            <input 
-                              [type]="showPassword ? 'text' : 'password'" 
-                              id="password" 
-                              placeholder="Contraseña" 
-                              name="password" 
-                              ngModeñ
-                              required>
-                            
+                            <input [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Contraseña"
+                                name="password" ngModel required>
+
                             <button type="button" (click)="togglePasswordVisibility()">
-                              <img 
-                                [src]="showPassword ? 'img/icons/prohibido.png' : 'img/icons/ok.png'" 
-                                alt="Toggle Password Visibility" 
-                                style="width: 25px; height: 25px;">
+                                <img [src]="showPassword ? 'img/icons/EyeOpen.png' : 'img/icons/EyeClose.png'"
+                                    alt="Toggle Password Visibility" style="width: 25px; height: 25px;">
                             </button>
-                          </div>
-                          
+                        </div>
+
                     </section>
 
                     <section class="loginbutton">
                         <div class="buttonLog">
                             <button [disabled]="loginForm.invalid" class="button" type="submit"><span> Iniciar Sesion
                                 </span></button>
-                            @if(errorLogin){
-                            <p>Erro en login</p>
-                            }
                         </div>
                     </section>
                 </form>

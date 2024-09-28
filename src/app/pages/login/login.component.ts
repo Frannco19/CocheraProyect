@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Login, ResLogin } from '../../interfaces/login';
 import { DataAuthService } from '../../services/data-auth.service';
 import { FormsModule, NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -17,37 +18,39 @@ export class LoginComponent {
   router = inject(Router);
   showPassword: boolean = false; 
 
-  LoginData: Login = {
-    username: "admin",
-    password: "admin"
-  }
-
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
-
-  // login(){
-  //   fetch('http://localhost:4000/login',{
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-type' : 'application/json'
-  //     },
-  //     body: JSON.stringify(this.LoginData)
-  //   }).then(res =>{
-  //     console.log("tengo respuesta del back",res)
-  //     res.json().then(resJson =>{
-  //       console.log(res.json)
-  //     })
-  //   })
-  //   console.log("Despues del fetch")
-  // }
-  errorLogin = false
-  async login(loginForm: NgForm) {
-    const {usuario,password} = loginForm.value;
-    const logimData : Login = {username: usuario,password}
-    const res = await this.authService.login(this.LoginData)
+  errorLogin = false;
+  async login(loginForm: NgForm){
+    const {usuario, password} = loginForm.value;
+    const loginData: Login = {username: usuario, password}
+    const res = await this.authService.login(loginData)
     if(res?.status === "ok") this.router.navigate(['/state-garage']);
-    else this.errorLogin = true;
+    else this.errorLogin = true, this.loginFail();
+  }
+
+  loginFail() {
+    Swal.fire({
+      title: "Usuario y/o contraseña incorrecto/s!",
+      willOpen: () => {
+        const titleEl = document.querySelector('.swal2-title') as HTMLElement;
+        const contentEl = document.querySelector('.swal2-html-container') as HTMLElement;
+        const confirmButton = document.querySelector('.swal2-confirm') as HTMLElement;
+        if (titleEl) {
+          titleEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (contentEl) {
+          contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (confirmButton){
+          confirmButton.style.backgroundColor = '#ffd000'; 
+          confirmButton.style.color = 'black'; 
+          confirmButton.style.border = 'none'; 
+        }
+      },
+      confirmButtonText: "Intentar de nuevo"
+    });
   }
 
 }

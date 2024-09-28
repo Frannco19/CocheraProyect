@@ -14,14 +14,13 @@ main {
 
 .WelcomeLogin {
     width: 45%;
-    /* Ajusta el ancho según lo necesites */
     text-align: right;
     padding: 20px;
 }
 
 .WelcomeLogin h2 {
     font-size: 36px;
-    color: white;
+    color: #ffd000;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -73,7 +72,6 @@ main {
     color: rgb(0, 0, 0);
     font-size: 1rem;
     box-sizing: border-box;
-    /* Esta línea es la clave */
 }
 
 

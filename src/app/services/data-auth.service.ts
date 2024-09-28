@@ -19,13 +19,13 @@ export class DataAuthService {
       },
       body: JSON.stringify(LoginData)
     })
-    if (res.status != 200) return;
+    if (res.status !== 200) return;
     const resJson: ResLogin = await res.json();
     if (!resJson.token) return;
     this.user = {
       username: LoginData.username,
       token: resJson.token,
-      esAdmin: false
+      esAdmin: true
     }
     return resJson;
   }
