@@ -1,0 +1,44 @@
+<main>
+    <section class="login">
+        <header>
+            <h1 class="loginTitle"> PARKING APP</h1>
+            <h1 class="loginTitle"> Registrarse</h1>
+        </header>
+        <section class="loginContent">
+            <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+                <section class="loginFields">
+                    <div>
+                        <label for="username">Usuario </label>
+                        <input type="text" id="username" placeholder="Usuario" name="username" ngModel required>
+                    </div>
+                    <div>
+                        <label for="nombre">Nombre </label>
+                        <input type="text" id="nombre" placeholder="Nombre" name="nombre" ngModel required>
+                    </div>
+                    <div>
+                        <label for="apellido">Apellido </label>
+                        <input type="text" id="apellido" placeholder="Apellido" name="apellido" ngModel required>
+                    </div>
+                    <div class="input-container">
+                        <label for="password">Contraseña</label>
+                        <input [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Contraseña"
+                            name="password" ngModel required>
+
+                        <button type="button" (click)="togglePasswordVisibility()">
+                            <img [src]="showPassword ? 'img/icons/EyeOpen.png' : 'img/icons/EyeClose.png'"
+                                alt="Toggle Password Visibility" style="width: 25px; height: 25px;">
+                        </button>
+                    </div>
+
+                </section>
+
+                <section class="loginbutton">
+                    <div class="buttonLog">
+                        <button [disabled]="registerForm.invalid" class="button" type="submit"><span> Registrar Usuario
+                            </span></button>
+                    </div>
+                </section>
+            </form>
+        </section>
+    </section>
+</main>

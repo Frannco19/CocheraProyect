@@ -7,6 +7,7 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { onlyPublicGuard } from './guards/only-public.guard';
 import { onlyLoginGuard } from './guards/only-login.guard';
 import { adminGuard } from './guards/only-admin.guard';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
     {
@@ -28,6 +29,11 @@ export const routes: Routes = [
     {
         path:"login",
         component: LoginComponent,
+        canActivate: [onlyPublicGuard]
+    },
+    {
+        path:"register",
+        component: RegisterComponent,
         canActivate: [onlyPublicGuard]
     },
     // {

@@ -24,8 +24,8 @@ export class StateGarageComponent {
 
   }
 
-  deleteGarage(index:number) {
-    this.dataGarageServices.Garages.splice(index, 1)
+  deleteGarage($index:number) {
+    this.dataGarageServices.deleteGarage()
   }
 
   AddGarage() {
