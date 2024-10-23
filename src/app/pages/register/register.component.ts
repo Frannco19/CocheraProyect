@@ -47,9 +47,9 @@ export class RegisterComponent {
           }
         })
       ));
-    }
+    } else this.errorRegister= true;
     
-    else this.errorRegister= true;
+    
   }
 }
 

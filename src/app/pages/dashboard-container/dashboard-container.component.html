@@ -5,9 +5,14 @@
             <a [routerLink]="['/state-garage']" routerLinkActive="link-active">Estado Cochera</a>
             @if(esAdmin){
             <a [routerLink]="['/reports']" routerLinkActive="link-active">Reportes</a>
-            <a [routerLink]="['/state-garage']" routerLinkActive="link-active">Precios</a>
+            <a [routerLink]="['/prices']" routerLinkActive="link-active">Precios</a>
             }
-            <a>Usuario</a>
+            <div class="usuario">
+                <a>Usuario</a>
+                <div class="dropdown">
+                    <a [routerLink]="['/login']">Cerrar sesión</a>
+                </div>
+            </div>
         </nav>
     </div>
 </header>

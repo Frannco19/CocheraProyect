@@ -8,3 +8,18 @@ h1{
 #agregar-cochera{
     margin: auto;
 }
+
+.buttonAddGarage {
+    background-color: blue; /* Color cuando está habilitado */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:disabled {
+        background-color: lightgray; /* Color cuando está deshabilitado */
+        color: darkgray; /* Color del texto cuando está deshabilitado */
+        cursor: not-allowed;
+    }
+}
