@@ -24,7 +24,6 @@ export class LoginComponent {
   errorLogin = false;
   async login(loginForm: NgForm){
     const {username, password} = loginForm.value;
-
     const loginData = {username, password};
 
     const res = await this.authService.login(loginData)

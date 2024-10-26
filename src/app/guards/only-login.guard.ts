@@ -7,7 +7,7 @@ export const onlyLoginGuard: CanActivateFn = (route, state) => {
   const dataAuthService = inject(DataAuthService);
   const router = inject(Router);
 
-  if (!dataAuthService.usuario?.token) return true;
-  const url = router.parseUrl("/login");
+  if (dataAuthService.usuario?.token) return true;
+  const url = router.parseUrl('/login');
   return new RedirectCommand(url);
 };

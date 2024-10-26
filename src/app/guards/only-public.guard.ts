@@ -7,6 +7,6 @@ export const onlyPublicGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   if (!dataAuthService.usuario) return true;
-  const url = router.parseUrl("state-garage");
+  const url = router.parseUrl('state-garage');
   return new RedirectCommand(url);
 };
