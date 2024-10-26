@@ -42,14 +42,9 @@ export const routes: Routes = [
         component: RegisterComponent,
         canActivate: [onlyPublicGuard]
     },
-    // {
-    //     path: "",
-    //     redirectTo: "login",
-    //     pathMatch: "full"
-    // },
     {
         path:"not-found",
-        component: NotFoundComponent
+        component: NotFoundComponent,
     },
     {
         path: "**",

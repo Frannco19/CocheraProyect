@@ -1,12 +1,12 @@
 <main>
-    <section class="login">
-        <header>
-            <h1 class="loginTitle"> PARKING APP</h1>
-            <h1 class="loginTitle"> Registrarse</h1>
+    <section class="register">
+        <header class="registerSection">
+            <h1 class="registerTitle"> PARKING APP</h1>
+            <h1 class="registerTitle"> Registrarse</h1>
         </header>
-        <section class="loginContent">
+        <section class="registerContent">
             <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
-                <section class="loginFields">
+                <section class="registerFields">
                     <div>
                         <label for="username">Usuario </label>
                         <input type="text" id="username" placeholder="Usuario" name="username" ngModel required>
@@ -21,22 +21,24 @@
                     </div>
                     <div class="input-container">
                         <label for="password">Contraseña</label>
-                        <input [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Contraseña"
-                            name="password" ngModel required>
+                        <input [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Contraseña" name="password" ngModel required>
 
                         <button type="button" (click)="togglePasswordVisibility()">
                             <img [src]="showPassword ? 'img/icons/EyeOpen.png' : 'img/icons/EyeClose.png'"
                                 alt="Toggle Password Visibility" style="width: 25px; height: 25px;">
                         </button>
                     </div>
-                    @if(errorRegister) {
-                        <p>Error en login</p>
-                    }
                 </section>
 
-                <section class="loginbutton">
+                <section>
                     <div class="buttonLog">
-                        <button [disabled]="registerForm.invalid" class="button" type="submit"><span> Registrar Usuario
+                        <button class="button" type="submit"><span> Registrar Usuario
+                            </span></button>
+                    </div>
+                </section>
+                <section>
+                    <div class="buttonLog">
+                        <button class="button" [routerLink]="['/login']"><span> Volver a Iniciar Sesion
                             </span></button>
                     </div>
                 </section>

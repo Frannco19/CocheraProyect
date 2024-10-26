@@ -27,7 +27,7 @@
 
                     <section class="loginbutton">
                         <div class="buttonLog">
-                            <button [disabled]="loginForm.invalid" class="button" type="submit"><span> Iniciar Sesion
+                            <button class="button" type="submit"><span> Iniciar Sesion
                                 </span></button>
                         </div>
                     </section>
@@ -35,7 +35,12 @@
             </section>
             <footer>
                 <p class="footer-description">¿Todavia no estas registrado?</p>
-                <a class="buttonRegister" [routerLink]="['/register']" routerLinkActive="link-active">Registrarse</a>
+                <section class="loginbutton">
+                    <div class="buttonLog">
+                        <button class="button" [routerLink]="['/register']"><span> Registrarse
+                            </span></button>
+                    </div>
+                </section>
             </footer>
         </section>
 
