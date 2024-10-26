@@ -8,9 +8,9 @@
             <a [routerLink]="['/prices']" routerLinkActive="link-active">Precios</a>
             }
             <div class="usuario">
-                <a>Usuario</a>
+                <a><img src="img/icons/avatar.png"></a>
                 <div class="dropdown">
-                    <a [routerLink]="['/login']">Cerrar sesión</a>
+                    <button (click)="cerrarSesion()">Cerrar sesión</button>
                 </div>
             </div>
         </nav>

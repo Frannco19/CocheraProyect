@@ -47,6 +47,11 @@
   
       .usuario {
         position: relative;
+
+        img{
+          width: 30px;
+          margin: auto;
+        }
   
         a {
           display: flex;

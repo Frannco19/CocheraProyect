@@ -1,24 +1,24 @@
 import { inject, Injectable } from '@angular/core';
 import { DataGaragesService } from './data-garages.service';
-import { parkingLot } from '../interfaces/parkingLot';
+import { Estacionamiento } from '../interfaces/estacionamiento';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataparkingLotsService {
   dataGarageService = inject(DataGaragesService)
-  ultimasTransacciones: parkingLot[] = [];
+  ultimasTransacciones: Estacionamiento[] = [];
 
   constructor() {
     this.getUltimasTransacciones();
    }
 
   async getUltimasTransacciones(cantidad = 5) {
-    if (!this.dataGarageService.parkingLots || this.dataGarageService.parkingLots.length === 0) {
+    if (!this.dataGarageService.estacionamientos || this.dataGarageService.estacionamientos.length === 0) {
       console.error("No hay estacionamientos disponibles");
     }
 
-    const transaccionesFiltradas = this.dataGarageService.parkingLots.filter(parkinglot => 
+    const transaccionesFiltradas = this.dataGarageService.estacionamientos.filter(parkinglot => 
         parkinglot.horaEgreso !== null && parkinglot.horaEgreso !== undefined
     );
 

@@ -1,4 +1,4 @@
-export interface parkingLot{
+export interface Estacionamiento{
     id: number,
     patente: string,
     horaIngreso: string,

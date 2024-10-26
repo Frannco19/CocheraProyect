@@ -1,4 +1,4 @@
-export interface User{
+export interface Usuario{
     username: string,
     token: string,
     esAdmin: boolean

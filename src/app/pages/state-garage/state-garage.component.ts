@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Garage } from '../../interfaces/garage';
+import { Cochera } from '../../interfaces/cochera';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { DataGaragesService } from '../../services/data-garages.service';
@@ -14,65 +14,85 @@ import { DataRatesService } from '../../services/data-rates.service';
   styleUrl: './state-garage.component.scss'
 })
 export class StateGarageComponent {
-  titulo = "PARKING APP";
   esAdmin = true
-  authService = inject(DataAuthService)
-  dataGarageServices = inject(DataGaragesService)
+  authService = inject(DataAuthService);
+  dataGarageService = inject(DataGaragesService);
   dataRatesService = inject(DataRatesService);
 
-  async deleteGarage(index: number) {
-    await this.dataGarageServices.deleteFile(index)
-  }
-
-  async AddGarage() {
-    await this.dataGarageServices.AddGarage()
-  }
-
-  disableGarage(index:number) {
-    this.dataGarageServices.disableGarage(index)
-  }
-
-  ableGarage(index:number) {
-    this.dataGarageServices.ableGarage(index)
-  }
-
-  questionDeleteGarage(index:number) {
+  questionAddGarage(){
     Swal.fire({
-      title: "¿Deseas eliminar la cochera?",
-      text: "Se eliminará el registro de la cochera",
-      icon: "warning",
+      title: "Nueva cochera?",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Eliminar",
-      willOpen: () => {
-        const titleEl = document.querySelector('.swal2-title') as HTMLElement;
-        const contentEl = document.querySelector('.swal2-html-container') as HTMLElement;
-        if (titleEl) {
-          titleEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
-        }
-        if (contentEl) {
-          contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
-        }
-      }
-    }).then((result) => {
+      confirmButtonText: "Agregar",
+      denyButtonText: `Cancelar`,
+      input: "text",
+      inputLabel: "Nombre cochera"
+    }).then(async (result) => {
+      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.dataGarageServices.Garages.splice(index, 1);
-        Swal.fire({
-          title: "Eliminado!",
-          text: "La cochera ha sido eliminada.",
-          icon: "success",
-          willOpen: () => {
-            const titleEl = document.querySelector('.swal2-title') as HTMLElement;
-            const contentEl = document.querySelector('.swal2-html-container') as HTMLElement;
-            if (titleEl) {
-              titleEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
-            }
-            if (contentEl) {
-              contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
-            }
-          }
-        });
+        this.dataGarageService.AddGarage(result.value)
+        // await this.borrarFila(cocheraId)
+        // Swal.fire("Saved!", "", "success");
+      } else if (result.isDenied) {
+        // Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  }
+
+  questionDisableGarage(cocheraId: number){
+    Swal.fire({
+      title: "Deshabilitar cochera?",
+      showCancelButton: true,
+      confirmButtonText: "Deshabilitar",
+      denyButtonText: `Cancelar`
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await this.dataGarageService.disableGarage(cocheraId)
+        // Swal.fire("Saved!", "", "success");
+      } else if (result.isDenied) {
+        // Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  }
+
+  questionAbleGarage(cocheraId: number){
+    Swal.fire({
+      title: "Hablitar cochera?",
+      showCancelButton: true,
+      confirmButtonText: "Habilitar",
+      denyButtonText: `Cancelar`
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await this.dataGarageService.ableGarage(cocheraId)
+        // Swal.fire("Saved!", "", "success");
+      } else if (result.isDenied) {
+        // Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  }
+
+  questionDeleteGarage(cocheraId: number){
+    Swal.fire({
+      title: "Borrar cochera?",
+      showCancelButton: true,
+      confirmButtonText: "Eliminar",
+      denyButtonText: `Cancelar`,
+      inputValidator: (value)=> {
+        console.warn('revisando value',value)
+        if(!value) return 'Falta escribir un identificador a la cochera';
+        for (let i = 0; i < this.dataGarageService.cocheras.length; i++) {
+          const element = this.dataGarageService.cocheras[i];
+          if(element.descripcion === value) return 'Ese identificador de cochera ya existe';
+        }
+        return;
+      }
+    }).then(async (result) => { 
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        await this.dataGarageService.deleteFile(cocheraId)
+        Swal.fire("Saved!", "", "success");
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
       }
     });
   }
@@ -96,13 +116,13 @@ export class StateGarageComponent {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const { patente } = result.value;
-        await this.dataGarageServices.openParkingLot(patente, idUsuarioIngreso, idCochera);
+        await this.dataGarageService.openParkingLot(patente, idUsuarioIngreso, idCochera);
       }
     })
   }
 
-  closeParkingLot(garage: Garage) {
-    const horario = garage.parkingLot?.horaIngreso;
+  closeParkingLot(cochera: Cochera) {
+    const horario = cochera.estacionamiento?.horaIngreso;
     let fechaIngreso;
     let horasPasadas = 0; 
     let minutosPasados = 0; 
@@ -120,7 +140,7 @@ export class StateGarageComponent {
             minutosPasados = Math.floor((diferenciaEnMilisegundos % (1000 * 60 * 60)) / (1000 * 60));
         }
 
-        patente = garage.parkingLot?.patente!;
+        patente = cochera.estacionamiento?.patente!;
 
         const totalMinutos = horasPasadas * 60 + minutosPasados;
         if (totalMinutos <= 30) {
@@ -131,7 +151,7 @@ export class StateGarageComponent {
             tarifaABuscar = "VALORHORA";
         }
 
-        total = this.dataRatesService.tarifas.find(t => t.id === tarifaABuscar)?.valor;
+        total = this.dataRatesService.tarifa.find(t => t.id === tarifaABuscar)?.valor;
     }
 
     const horaFormateada = fechaIngreso ? fechaIngreso.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
@@ -159,7 +179,7 @@ export class StateGarageComponent {
             if (cobrarButton) {
                 cobrarButton.addEventListener('click', async () => {
                     const idUsuarioEgreso = "ADMIN";
-                    await this.dataGarageServices.closeParkingLot(patente, idUsuarioEgreso);
+                    await this.dataGarageService.closeParkingLot(patente, idUsuarioEgreso);
                     Swal.close();
                 });
             }

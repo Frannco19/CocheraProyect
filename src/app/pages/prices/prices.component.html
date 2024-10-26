@@ -1,0 +1,24 @@
+<main class="flex-column-center">
+    <table>
+        <thead>
+            <td>Tiempo</td>
+            <td>Costo</td>
+            <td>Acciones</td>
+        </thead>
+        <tbody>
+            @for (tarifa of this.dataRatesService.tarifa; track $index) {
+                <tr>
+                    <td>
+                        {{ tarifa.descripcion }}
+                    </td>
+                    <td>
+                        {{ tarifa.valor }}
+                    </td>
+                    <td>
+                        <button (click)="UpdatePrice(tarifa.id)"><img src="img/icons/edit.png" alt="Eliminar cochera"></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</main>

@@ -7,34 +7,35 @@
         <td>Acciones</td>
     </thead>
     <tbody>
-        @for (garage of dataGarageServices.Garages; track $index) {
+        @for (cochera of dataGarageService.cocheras; track $index) {
             <tr>
-                <td> {{ garage.id }} </td>
+                <td> {{ cochera.id }} </td>
                 <td>
-                    @if (!garage.parkingLot?.horaEgreso && garage.parkingLot?.horaIngreso) {
-                        <button (click)="closeParkingLot(garage)">
-                            {{ garage.parkingLot?.patente }}
+                    @if (cochera.deshabilitada) {
+                        <button class="deshabilitada">
+                            Deshabilitada
                         </button>
-                    } @else if (garage.parkingLot?.horaEgreso) {
-                        <button (click)="openParkingLot(garage.id)">
-                            Desocupado
+                    } @else if (!cochera.estacionamiento?.horaEgreso && cochera.estacionamiento) {
+                        <button (click)="closeParkingLot(cochera)">
+                            {{ cochera.estacionamiento.patente }}
                         </button>
                     } @else {
-                        <button (click)="openParkingLot(garage.id)">
+                        <button class="disponible" (click)="openParkingLot(cochera.id)">
                             Disponible
                         </button>
                     }
                 </td>
-                <td>{{ garage.descripcion }}</td>
+                <td>{{ cochera.descripcion }}</td>
                 <td class="acciones-container"> 
-                    @if(!garage.deshabilitado){
-                        <button (click)="disableGarage($index)"><img src="img/icons/prohibido.png" alt="Deshabilitar cochera"></button>
-                    } @else {
-                        <button (click)="ableGarage($index)"><img src="img/icons/ok.png" alt="Habilitar cochera"></button>
-
-                    }
-                    @if(esAdmin){   
-                        <button (click)="questionDeleteGarage(garage.id)"><img src="img/icons/contenedor-de-basura.png" alt="Eliminar cochera"></button>
+                    @if(!cochera.estacionamiento?.patente){
+                        @if(!cochera.deshabilitada){
+                            <button (click)="questionDisableGarage(cochera.id)"><img src="img/icons/prohibido.png" alt="Deshabilitar cochera"></button>
+                        } @else {
+                            <button (click)="questionAbleGarage(cochera.id)"><img src="img/icons/ok.png" alt="Habilitar cochera"></button>
+                        }
+                        @if(esAdmin){   
+                            <button (click)="questionDeleteGarage(cochera.id)"><img src="img/icons/contenedor-de-basura.png" alt="Eliminar cochera"></button>
+                        }
                     }
                 </td>
             </tr>
@@ -43,6 +44,6 @@
 </table>
 
 @if(esAdmin){
-    <button (click)="AddGarage()" class="boton-resaltado" id="agregar-cochera">+</button>
+    <button (click)="questionAddGarage()" class="boton-resaltado" id="agregar-cochera">+</button>
 }
 </main>

@@ -6,8 +6,9 @@ import { DashboardContainerComponent } from './pages/dashboard-container/dashboa
 import { ReportsComponent } from './pages/reports/reports.component';
 import { onlyPublicGuard } from './guards/only-public.guard';
 import { onlyLoginGuard } from './guards/only-login.guard';
-import { adminGuard } from './guards/only-admin.guard';
+import { onlyadminGuard } from './guards/only-admin.guard';
 import { RegisterComponent } from './pages/register/register.component';
+import { PricesComponent } from './pages/prices/prices.component';
 
 export const routes: Routes = [
     {
@@ -22,12 +23,17 @@ export const routes: Routes = [
             {
                 path:"reports",
                 component: ReportsComponent,
-                canActivate: [adminGuard]
+                canActivate: [onlyadminGuard]
+            },
+            {
+                path:"prices",
+                component: PricesComponent,
+                canActivate: [onlyadminGuard]
             },
         ]
     },
     {
-        path:"login",
+        path: "login",
         component: LoginComponent,
         canActivate: [onlyPublicGuard]
     },

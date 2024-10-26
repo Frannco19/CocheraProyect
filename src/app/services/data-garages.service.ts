@@ -1,14 +1,14 @@
 import { inject, Injectable } from '@angular/core';
-import { Garage } from '../interfaces/garage';
+import { Cochera } from '../interfaces/cochera';
 import { DataAuthService } from './data-auth.service';
-import { parkingLot } from '../interfaces/parkingLot';
+import { Estacionamiento } from '../interfaces/estacionamiento';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataGaragesService {
-  Garages: Garage[] = []
-  parkingLots: parkingLot[] = []
+  cocheras: Cochera[] = []
+  estacionamientos: Estacionamiento[] = []
   authServices = inject(DataAuthService);
 
   constructor() {
@@ -21,12 +21,42 @@ export class DataGaragesService {
     this.associateParkingLotsWithGarages()
   }
 
-  async desableGarage(idCochera: number) {
-    const res = await fetch('http://localhost:4000/cocheras', {
+  async getGarages(){
+    const res = await fetch('http://localhost:4000/cocheras',{
+      headers: {
+        authorization:'Bearer '+localStorage.getItem("authToken")
+      },
+    })
+    if(res.status !== 200) return;
+    const resJson:Cochera[] = await res.json();
+    this.cocheras = resJson;
+  }
+
+  async getParkingLots(){
+    const res = await fetch('http://localhost:4000/estacionamientos',{
+      headers: {
+        authorization:'Bearer '+ localStorage.getItem("authToken")
+      },
+    })
+    if(res.status !== 200) return;
+    const resJson: Estacionamiento[] = await res.json();
+    this.estacionamientos = resJson;
+  }
+
+  associateParkingLotsWithGarages() {
+    this.cocheras = this.cocheras.map(garage => {
+      const estacionamiento = this.estacionamientos.find(e => e.idCochera === garage.id)
+      return {...garage, estacionamiento}
+    });
+    console.log(this.cocheras)
+  }
+
+  async disableGarage(idCochera: number) {
+    const res = await fetch('http://localhost:4000/cocheras/'+idCochera+'/disable',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        authorization:'Bearer '+this.authServices.user?.token
+        authorization:'Bearer '+localStorage.getItem("authToken")
       },
       body: JSON.stringify(idCochera)
     })
@@ -37,46 +67,15 @@ export class DataGaragesService {
     }
   };
 
-  async getGarages() {
-    const res = await fetch('http://localhost:4000/cocheras', {
-      method: 'GET',
-      headers: {
-        authorization: 'Bearer ' + this.authServices.user?.token
-      },
-    })
-    if (res.status != 200) return;
-    const resJson: Garage[] = await res.json();
-    this.Garages = resJson;
-  }
+  ultimoNumero = this.cocheras[this.cocheras.length-1]?.id || 0;
 
-  async getParkingLots(){
-    const res = await fetch('http://localhost:4000/estacionamientos',{
-      headers: {
-        authorization:'Bearer '+ localStorage.getItem("authToken")
-      },
-    })
-    if(res.status !== 200) return;
-    const resJson: parkingLot[] = await res.json();
-    this.parkingLots = resJson;
-  }
-
-  associateParkingLotsWithGarages() {
-    this.Garages = this.Garages.map(garages  => {
-      const estacionamiento = this.parkingLots.find(e => e.idCochera === garages.id)
-      return {...garages, estacionamiento}
-    });
-    console.log(this.Garages)
-  }
-
-  ultimoNumero = this.Garages[this.Garages.length-1]?.id || 0;
-
-  async AddGarage() {
-    const cochera = {"descripcion" : "Agregada por WebApi" };
+  async AddGarage(nombreCochera:string) {
+    const cochera = {"descripcion" : nombreCochera };
     const res = await fetch('http://localhost:4000/cocheras', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        authorization:'Bearer '+this.authServices.user?.token
+        authorization:'Bearer '+localStorage.getItem("authToken")
       },
       body: JSON.stringify(cochera)
     })
@@ -93,7 +92,7 @@ export class DataGaragesService {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        authorization: 'Bearer' + this.authServices.user?.token
+        authorization: 'Bearer'+localStorage.getItem("authToken")
       }
     })
     if (res.status !== 200) {
@@ -104,12 +103,20 @@ export class DataGaragesService {
     }
   };
 
-  disableGarage(index: number) {
-    this.Garages[index].deshabilitado = 1;
-  }
-
-  ableGarage(index: number) {
-    this.Garages[index].deshabilitado = 0;
+  async ableGarage(idCochera:number){
+    const res = await fetch('http://localhost:4000/cocheras/'+idCochera+'/enable',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization:'Bearer '+ localStorage.getItem("authToken")
+      },
+    })
+    if(res.status === 200) {
+      console.log("Cochera hablitada")
+      this.loadData()
+    } else {
+      console.warn("Error habilitando cochera")
+    };
   }
 
   async openParkingLot(patente: string, idUsuarioIngreso: string, idCochera: number) {
@@ -136,7 +143,7 @@ export class DataGaragesService {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        authorization:'Bearer '+this.authServices.user?.token
+        authorization:'Bearer ' + localStorage.getItem("authToken")
       },
       body: JSON.stringify(body)
     })
@@ -144,7 +151,6 @@ export class DataGaragesService {
       console.log("Error en el cerrado del estacionamiento")
     } else {
       console.log("Cerrado del estacionamiento exitoso")
-      console.log(res)
       this.loadData();
     };    
   }

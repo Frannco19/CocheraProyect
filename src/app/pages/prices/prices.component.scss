@@ -1,0 +1,22 @@
+@use "./../../../../public/styles/tables.scss";
+
+h1{
+    color: red;
+}
+
+#agregar-cochera{
+    margin: auto;
+}
+
+table{
+    width: 0;
+    thead, tr{
+        grid-template-columns: 2fr 2fr 2fr;
+    }
+
+    img{
+        width: 20%;
+        margin: auto;
+      }
+
+}

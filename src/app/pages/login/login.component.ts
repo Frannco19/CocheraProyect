@@ -23,9 +23,12 @@ export class LoginComponent {
   }
   errorLogin = false;
   async login(loginForm: NgForm){
-    const {usuario, password} = loginForm.value;
-    const loginData: Login = {username: usuario, password}
+    const {username, password} = loginForm.value;
+
+    const loginData = {username, password};
+
     const res = await this.authService.login(loginData)
+    
     if(res?.statusText === "OK") this.router.navigate(['/state-garage']);
     else this.errorLogin = true, this.loginFail();
   }

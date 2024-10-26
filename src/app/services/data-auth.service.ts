@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { User } from '../interfaces/user';
+import { Usuario } from '../interfaces/usuario';
 import { Login, ResLogin } from '../interfaces/login';
 import { Router } from '@angular/router';
 import { Register } from '../interfaces/register';
@@ -8,17 +8,26 @@ import { Register } from '../interfaces/register';
   providedIn: 'root'
 })
 export class DataAuthService {
+  constructor() {
+    const token = this.getToken();
+    if(token){
+      if(!this.usuario) this.usuario = {
+        username: '',
+        token: token,
+        esAdmin: false
+      }
+      else this.usuario!.token = token;
+    }
+   }
+  usuario: Usuario | undefined;
 
-  constructor() { }
-  user: User | undefined;
-
-  async login(LoginData: Login) {
+  async login(loginData: Login) {
     const res = await fetch('http://localhost:4000/login', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
-      body: JSON.stringify(LoginData)
+      body: JSON.stringify(loginData)
     })
     if (res.status !== 200) return;
 
@@ -26,15 +35,15 @@ export class DataAuthService {
 
     if (!resJson.token) return;
 
-    this.user = {
-      username: LoginData.username,
+    this.usuario = {
+      username: loginData.username,
       token: resJson.token,
       esAdmin: false
     }
 
     localStorage.setItem("authToken", resJson.token);
 
-    const userDetailsRes = await fetch(`http://localhost:4000/usuarios/${encodeURIComponent(LoginData.username)}`, {
+    const userDetailsRes = await fetch(`http://localhost:4000/usuarios/${encodeURIComponent(loginData.username)}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${resJson.token}`,
@@ -46,7 +55,7 @@ export class DataAuthService {
 
     const userDetailsResJson = await userDetailsRes.json();
 
-    this.user.esAdmin = userDetailsResJson.esAdmin;
+    this.usuario.esAdmin = userDetailsResJson.esAdmin;
 
     return userDetailsRes;
   }
@@ -69,7 +78,6 @@ export class DataAuthService {
   }
 
   clearToken() {
-    localStorage.removeItem("authToken")
+     localStorage.removeItem("authToken");
   }
-
 }
