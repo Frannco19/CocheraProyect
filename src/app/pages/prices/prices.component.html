@@ -6,7 +6,7 @@
             <td>Acciones</td>
         </thead>
         <tbody>
-            @for (tarifa of this.dataRatesService.tarifa; track $index) {
+            @for (tarifa of this.dataRatesService.tarifas; track $index) {
                 <tr>
                     <td>
                         {{ tarifa.descripcion }}
@@ -15,7 +15,7 @@
                         {{ tarifa.valor }}
                     </td>
                     <td>
-                        <button (click)="UpdatePrice(tarifa.id)"><img src="img/icons/edit.png" alt="Eliminar cochera"></button>
+                        <button (click)="UpdatePrice(tarifa.id)"><img src="img/icons/edit.png"></button>
                     </td>
                 </tr>
             }

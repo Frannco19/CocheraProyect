@@ -1,3 +1,4 @@
+@use "./../public/styles/colors.scss";
 /* You can add global styles to this file, and also import other style files */
 html,
 body {
@@ -26,6 +27,8 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-height: 80vh; /* Ajusta el valor según el espacio que desees ocupar */
+    overflow-y: auto; /* Activa el scroll interno cuando el contenido excede la altura */
 }
 
 input,
@@ -47,4 +50,11 @@ table{
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+}
+
+.boton-resaltado{
+    background-color: colors.$color-primario;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
 }

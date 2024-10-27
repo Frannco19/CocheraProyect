@@ -1,7 +1,6 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
 import { Login, ResLogin } from '../interfaces/login';
-import { Router } from '@angular/router';
 import { Register } from '../interfaces/register';
 import { environment } from '../../environments/environment.development';
 

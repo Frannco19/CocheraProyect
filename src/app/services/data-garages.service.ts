@@ -83,6 +83,7 @@ export class DataGaragesService {
       console.log("Error en la creacion de una nueva cochera")
     } else {
       console.log("Creacion de cochera exitosa")
+      this.loadData();
     }
   };
 

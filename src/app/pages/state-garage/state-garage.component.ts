@@ -26,7 +26,27 @@ export class StateGarageComponent {
       confirmButtonText: "Agregar",
       denyButtonText: `Cancelar`,
       input: "text",
-      inputLabel: "Nombre cochera"
+      inputLabel: "Nombre cochera",
+      willOpen: () => {
+        const titleEl = document.querySelector('.swal2-title') as HTMLElement;
+        const contentEl = document.querySelector('.swal2-html-container') as HTMLElement;
+        const confirmButton = document.querySelector('.swal2-confirm') as HTMLElement;
+        const inputLabel = document.querySelector('.swal2-') as HTMLElement;
+        if (titleEl) {
+          titleEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (contentEl) {
+          contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (inputLabel) {
+          contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (confirmButton){
+          confirmButton.style.backgroundColor = '#ffd000'; 
+          confirmButton.style.color = 'black'; 
+          confirmButton.style.border = 'none'; 
+        }
+      },
     }).then(async (result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
@@ -44,7 +64,23 @@ export class StateGarageComponent {
       title: "Deshabilitar cochera?",
       showCancelButton: true,
       confirmButtonText: "Deshabilitar",
-      denyButtonText: `Cancelar`
+      denyButtonText: `Cancelar`,
+      willOpen: () => {
+        const titleEl = document.querySelector('.swal2-title') as HTMLElement;
+        const contentEl = document.querySelector('.swal2-html-container') as HTMLElement;
+        const confirmButton = document.querySelector('.swal2-confirm') as HTMLElement;
+        if (titleEl) {
+          titleEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (contentEl) {
+          contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (confirmButton){
+          confirmButton.style.backgroundColor = '#ffd000'; 
+          confirmButton.style.color = 'black'; 
+          confirmButton.style.border = 'none'; 
+        }
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await this.dataGarageService.disableGarage(cocheraId)
@@ -60,7 +96,23 @@ export class StateGarageComponent {
       title: "Hablitar cochera?",
       showCancelButton: true,
       confirmButtonText: "Habilitar",
-      denyButtonText: `Cancelar`
+      denyButtonText: `Cancelar`,
+      willOpen: () => {
+        const titleEl = document.querySelector('.swal2-title') as HTMLElement;
+        const contentEl = document.querySelector('.swal2-html-container') as HTMLElement;
+        const confirmButton = document.querySelector('.swal2-confirm') as HTMLElement;
+        if (titleEl) {
+          titleEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (contentEl) {
+          contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (confirmButton){
+          confirmButton.style.backgroundColor = '#ffd000'; 
+          confirmButton.style.color = 'black'; 
+          confirmButton.style.border = 'none'; 
+        }
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await this.dataGarageService.ableGarage(cocheraId)
@@ -85,7 +137,23 @@ export class StateGarageComponent {
           if(element.descripcion === value) return 'Ese identificador de cochera ya existe';
         }
         return;
-      }
+      },
+      willOpen: () => {
+        const titleEl = document.querySelector('.swal2-title') as HTMLElement;
+        const contentEl = document.querySelector('.swal2-html-container') as HTMLElement;
+        const confirmButton = document.querySelector('.swal2-confirm') as HTMLElement;
+        if (titleEl) {
+          titleEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (contentEl) {
+          contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (confirmButton){
+          confirmButton.style.backgroundColor = '#ffd000'; 
+          confirmButton.style.color = 'black'; 
+          confirmButton.style.border = 'none'; 
+        }
+      },
     }).then(async (result) => { 
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
@@ -105,6 +173,22 @@ export class StateGarageComponent {
       showCancelButton: true,
       confirmButtonText: "Abrir",
       cancelButtonText: "Cancelar",
+      willOpen: () => {
+        const titleEl = document.querySelector('.swal2-title') as HTMLElement;
+        const contentEl = document.querySelector('.swal2-html-container') as HTMLElement;
+        const confirmButton = document.querySelector('.swal2-confirm') as HTMLElement;
+        if (titleEl) {
+          titleEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (contentEl) {
+          contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (confirmButton){
+          confirmButton.style.backgroundColor = '#ffd000'; 
+          confirmButton.style.color = 'black'; 
+          confirmButton.style.border = 'none'; 
+        }
+      },
       preConfirm: () => {
         const patenteInput = document.getElementById("patente") as HTMLInputElement
         if (!patenteInput || !patenteInput.value) {
@@ -151,7 +235,7 @@ export class StateGarageComponent {
             tarifaABuscar = "VALORHORA";
         }
 
-        total = this.dataRatesService.tarifa.find(t => t.id === tarifaABuscar)?.valor;
+        total = this.dataRatesService.tarifas.find(t => t.id === tarifaABuscar)?.valor;
     }
 
     const horaFormateada = fechaIngreso ? fechaIngreso.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';

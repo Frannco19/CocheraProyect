@@ -6,7 +6,7 @@ import { DataAuthService } from './data-auth.service';
   providedIn: 'root'
 })
 export class DataRatesService {
-  tarifa: tarifa[] = []
+  tarifas: tarifa[] = []
   authService = inject(DataAuthService);
 
   constructor() { 
@@ -28,13 +28,13 @@ export class DataRatesService {
       console.log("Error")
     } else {
       console.log(res)
-      this.tarifa = await res.json();
+      this.tarifas = await res.json();
     }
   }
 
-  async UpdateTarifas(rateId: string, nuevoPrecio: string) {
-    const body = {rateId, nuevoPrecio};
-    const res = await fetch(`http://localhost:4000/tarifas/${rateId}`, {
+  async UpdateTarifas(descripcion: string, valor: string) {
+    const body = {descripcion, valor};
+    const res = await fetch(`http://localhost:4000/tarifas/${descripcion}`, {
       method: 'PUT', 
       headers: {
         'Content-Type': 'application/json',
