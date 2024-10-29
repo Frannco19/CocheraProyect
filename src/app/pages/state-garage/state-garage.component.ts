@@ -21,24 +21,19 @@ export class StateGarageComponent {
 
   questionAddGarage(){
     Swal.fire({
-      title: "Nueva cochera?",
+      title: "Ingresar nueva cochera",
       showCancelButton: true,
       confirmButtonText: "Agregar",
       denyButtonText: `Cancelar`,
       input: "text",
-      inputLabel: "Nombre cochera",
       willOpen: () => {
         const titleEl = document.querySelector('.swal2-title') as HTMLElement;
         const contentEl = document.querySelector('.swal2-html-container') as HTMLElement;
         const confirmButton = document.querySelector('.swal2-confirm') as HTMLElement;
-        const inputLabel = document.querySelector('.swal2-') as HTMLElement;
         if (titleEl) {
           titleEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
         }
         if (contentEl) {
-          contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
-        }
-        if (inputLabel) {
           contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
         }
         if (confirmButton){
@@ -48,13 +43,9 @@ export class StateGarageComponent {
         }
       },
     }).then(async (result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.dataGarageService.AddGarage(result.value)
-        // await this.borrarFila(cocheraId)
-        // Swal.fire("Saved!", "", "success");
       } else if (result.isDenied) {
-        // Swal.fire("Changes are not saved", "", "info");
       }
     });
   }
@@ -84,9 +75,7 @@ export class StateGarageComponent {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await this.dataGarageService.disableGarage(cocheraId)
-        // Swal.fire("Saved!", "", "success");
       } else if (result.isDenied) {
-        // Swal.fire("Changes are not saved", "", "info");
       }
     });
   }
@@ -116,9 +105,7 @@ export class StateGarageComponent {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await this.dataGarageService.ableGarage(cocheraId)
-        // Swal.fire("Saved!", "", "success");
       } else if (result.isDenied) {
-        // Swal.fire("Changes are not saved", "", "info");
       }
     });
   }
@@ -155,7 +142,6 @@ export class StateGarageComponent {
         }
       },
     }).then(async (result) => { 
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         await this.dataGarageService.deleteFile(cocheraId)
         Swal.fire("Saved!", "", "success");

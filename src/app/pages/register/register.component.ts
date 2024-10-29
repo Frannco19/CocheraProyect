@@ -24,8 +24,7 @@ export class RegisterComponent {
   async register(registerForm: NgForm) {
     const {username, nombre, apellido, password} = registerForm.value;
     if (!username || !nombre || !apellido || !password) {
-      this.errorRegister = true;
-      this.registerFail(); // Llamar al mensaje de campos vacíos
+      this.registerFail();
       return;
     }
     const registerData = {username, nombre, apellido, password};
@@ -52,7 +51,7 @@ export class RegisterComponent {
           }
         })
       ));
-    } else this.errorRegister= true, this.registerFail();
+    } else this.errorRegister= true;
   }
 
   registerFail() {

@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Cochera } from '../interfaces/cochera';
 import { DataAuthService } from './data-auth.service';
 import { Estacionamiento } from '../interfaces/estacionamiento';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class DataGaragesService {
   }
 
   async getGarages(){
-    const res = await fetch('http://localhost:4000/cocheras',{
+     const res = await fetch(environment.API_URL+`cocheras`,{
       headers: {
         authorization:'Bearer '+localStorage.getItem("authToken")
       },
@@ -33,7 +34,7 @@ export class DataGaragesService {
   }
 
   async getParkingLots(){
-    const res = await fetch('http://localhost:4000/estacionamientos',{
+    const res = await fetch(environment.API_URL+`estacionamientos`,{
       headers: {
         authorization:'Bearer '+ localStorage.getItem("authToken")
       },
@@ -52,18 +53,19 @@ export class DataGaragesService {
   }
 
   async disableGarage(idCochera: number) {
-    const res = await fetch('http://localhost:4000/cocheras/'+idCochera+'/disable',{
+    const res = await fetch(environment.API_URL+'cocheras/'+idCochera+'/disable',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         authorization:'Bearer '+localStorage.getItem("authToken")
       },
-      body: JSON.stringify(idCochera)
+      body: JSON.stringify({idCochera})
     })
     if (res.status !== 200) {
       console.log("Error en la creacion de una nueva cochera")
     } else {
       console.log("Creacion de cochera exitosa")
+      this.loadData();
     }
   };
 
@@ -71,7 +73,7 @@ export class DataGaragesService {
 
   async AddGarage(nombreCochera:string) {
     const cochera = {"descripcion" : nombreCochera };
-    const res = await fetch('http://localhost:4000/cocheras', {
+    const res = await fetch(environment.API_URL+`cocheras`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -88,24 +90,24 @@ export class DataGaragesService {
   };
 
 
-  async deleteFile(index:number) {
-    const res = await fetch(`http://localhost:4000/cocheras/${index}`, {
+  async deleteFile(index:number){
+    const res = await fetch(environment.API_URL+`cocheras/${index}`,{
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        authorization: 'Bearer'+localStorage.getItem("authToken")
+        authorization:'Bearer '+localStorage.getItem("authToken")
       }
     })
     if (res.status !== 200) {
       console.log('Error en la eliminacion de la cochera')
     } else {
-      console.log("Cochera eliminada con exirto")
+      console.log('Cochera eliminada con exito')
       this.loadData()
     }
-  };
+  }
 
   async ableGarage(idCochera:number){
-    const res = await fetch('http://localhost:4000/cocheras/'+idCochera+'/enable',{
+    const res = await fetch(environment.API_URL+'cocheras/'+idCochera+'/enable',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -122,7 +124,7 @@ export class DataGaragesService {
 
   async openParkingLot(patente: string, idUsuarioIngreso: string, idCochera: number) {
     const body = {patente, idUsuarioIngreso, idCochera};
-    const res = await fetch('http://localhost:4000/estacionamientos/abrir',{
+    const res = await fetch(environment.API_URL+`estacionamientos/abrir`,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -140,7 +142,7 @@ export class DataGaragesService {
 
   async closeParkingLot(patente: string, idUsuarioEgreso: string) {
     const body = {patente, idUsuarioEgreso};
-    const res = await fetch('http://localhost:4000/estacionamientos/cerrar',{
+    const res = await fetch(environment.API_URL+`estacionamientos/cerrar`,{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

@@ -22,7 +22,6 @@ export class LoginComponent {
     this.showPassword = !this.showPassword;
   }
   errorLogin = false;
-
   async login(loginForm: NgForm) {
     const { username, password } = loginForm.value;
 
@@ -34,7 +33,7 @@ export class LoginComponent {
 
     const loginData = { username, password };
     const res = await this.authService.login(loginData);
-  
+
     if (res?.statusText === "OK") {
       this.router.navigate(['/state-garage']);
     } else {
@@ -42,7 +41,6 @@ export class LoginComponent {
       this.loginFail();
     }
   }
-  
 
   loginFail() {
     Swal.fire({
