@@ -20,7 +20,7 @@ export class DataRatesService {
   }
 
   async getTarifas(){
-    const res = await fetch('http://localhost:4000/tarifas',{
+    const res = await fetch(environment.API_URL+`tarifas`,{
       headers: {
         authorization:'Bearer '+ localStorage.getItem("authToken")
       },

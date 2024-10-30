@@ -1,15 +1,20 @@
 
 @use "./../../../../public/styles/tables.scss";
-
-h1{
-    color: red;
-}
-
+@use "./../../../../public/styles/colors.scss";
 #agregar-cochera{
     margin: auto;
 }
 
 button{
     cursor: pointer !important;
+}
+
+
+.boton-resaltado{
+    background-color: colors.$color-primario;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    margin-top: 20px;
 }
 

@@ -82,7 +82,7 @@ export class StateGarageComponent {
 
   questionAbleGarage(cocheraId: number){
     Swal.fire({
-      title: "Hablitar cochera?",
+      title: "Habilitar cochera?",
       showCancelButton: true,
       confirmButtonText: "Habilitar",
       denyButtonText: `Cancelar`,
@@ -144,7 +144,23 @@ export class StateGarageComponent {
     }).then(async (result) => { 
       if (result.isConfirmed) {
         await this.dataGarageService.deleteFile(cocheraId)
-        Swal.fire("Saved!", "", "success");
+        Swal.fire({
+          title: "Eliminado con Exito!",
+          text: "",
+          icon: "success",
+          confirmButtonColor: "#3085d6", 
+          willOpen: () => {
+            const titleEl = document.querySelector('.swal2-title') as HTMLElement;
+            const contentEl = document.querySelector('.swal2-html-container') as HTMLElement;
+            if (titleEl) {
+              titleEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+              titleEl.style.color = "#4CAF50"; 
+            }
+            if (contentEl) {
+              contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+            }
+          }
+        })
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
       }
@@ -228,7 +244,7 @@ export class StateGarageComponent {
 
     Swal.fire({
         html: `
-            <div style="text-align: left;">
+            <div style="text-align: left; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                 <h4>Horario de inicio: ${horaFormateada}</h4>
                 <h4>Tiempo transcurrido: ${horasPasadas} horas y ${minutosPasados} minutos</h4>
                 <hr style="border: 1px solid #ccc;">
@@ -237,12 +253,13 @@ export class StateGarageComponent {
                     $${total}
                 </div>
                 <div style="margin-top: 20px; text-align: center;">
-                    <button id="cobrar" class="swal2-confirm swal2-styled" style="background-color: #007bff; padding: 10px 24px;">Cobrar</button>
+                    <button id="cobrar" class="swal2-confirm swal2-styled" style="background-color: #ffd000; padding: 10px 24px;">Cobrar</button>
                     <button id="volver" class="swal2-cancel swal2-styled" style="background-color: #aaa; padding: 10px 24px;">Volver</button>
                 </div>
             </div>`,
         showConfirmButton: false,
         didOpen: () => {
+
             const cobrarButton = document.getElementById('cobrar');
             const volverButton = document.getElementById('volver');
             

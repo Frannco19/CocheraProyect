@@ -12,6 +12,9 @@
     align-items: center;
     padding: 25px 20px;
     background-color: #ffd000;
+   .admin-title{
+      font-size: 15px;
+    }
     h1 {
       color: black;
       font-size: 32px;
@@ -91,6 +94,7 @@
   
         &:hover .dropdown {
           display: block;
+          
         }
       }
     }

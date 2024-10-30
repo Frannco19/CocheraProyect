@@ -24,11 +24,15 @@ export class PricesComponent {
       willOpen: () => {
         const titleEl = document.querySelector('.swal2-title') as HTMLElement;
         const contentEl = document.querySelector('.swal2-html-container') as HTMLElement;
+        const confirmButton = document.querySelector('.swal2-confirm') as HTMLElement;
         if (titleEl) {
           titleEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
         }
         if (contentEl) {
           contentEl.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        }
+        if (confirmButton){
+          confirmButton.style.backgroundColor ="#ffd000";
         }
       },
       preConfirm: () => {
