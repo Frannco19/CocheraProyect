@@ -46,7 +46,7 @@ export class DataGaragesService {
 
   associateParkingLotsWithGarages() {
     this.cocheras = this.cocheras.map(garage => {
-      const estacionamiento = this.estacionamientos.find(e => e.idCochera === garage.id)
+      const estacionamiento = this.estacionamientos.find(e => e.idCochera == garage.id && !e.horaEgreso)
       return {...garage, estacionamiento}
     });
     console.log(this.cocheras)

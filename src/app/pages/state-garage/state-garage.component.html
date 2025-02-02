@@ -1,49 +1,52 @@
 <main class="flex-column-center">
     <table>
         <thead>
-        <td>Nº</td>
-        <td>Disponibilidad</td>
-        <td>Ingreso</td>
-        <td>Acciones</td>
-    </thead>
-    <tbody>
-        @for (cochera of dataGarageService.cocheras; track $index) {
+            <td>Nº</td>
+            <td>Disponibilidad</td>
+            <td>Ingreso</td>
+            <td>Acciones</td>
+        </thead>
+        <tbody>
+            @for (cochera of dataGarageService.cocheras; track $index) {
             <tr>
                 <td> {{ cochera.id }} </td>
                 <td>
                     @if (cochera.deshabilitada) {
-                        <button class="deshabilitada">
-                            Deshabilitada
-                        </button>
+                    <button class="deshabilitada">
+                        Deshabilitada
+                    </button>
                     } @else if (!cochera.estacionamiento?.horaEgreso && cochera.estacionamiento) {
-                        <button (click)="closeParkingLot(cochera)">
-                            {{ cochera.estacionamiento.patente }}
-                        </button>
+                    <button (click)="closeParkingLot(cochera)">
+                        {{ cochera.estacionamiento.patente }}
+                    </button>
                     } @else {
-                        <button class="disponible" (click)="openParkingLot(cochera.id)">
-                            Disponible
-                        </button>
+                    <button class="disponible" (click)="openParkingLot(cochera.id)">
+                        Disponible
+                    </button>
                     }
                 </td>
                 <td>{{ cochera.descripcion }}</td>
-                <td class="acciones-container"> 
+                <td class="acciones-container">
                     @if(!cochera.estacionamiento?.patente){
-                        @if(!cochera.deshabilitada){
-                            <button (click)="questionDisableGarage(cochera.id)"><img src="img/icons/prohibido.png" alt="Deshabilitar cochera"></button>
-                        } @else {
-                            <button (click)="questionAbleGarage(cochera.id)"><img src="img/icons/ok.png" alt="Habilitar cochera"></button>
-                        }
-                        @if(esAdmin){
-                            <button (click)="questionDeleteGarage(cochera.id)"><img src="img/icons/contenedor-de-basura.png" alt="Eliminar cochera"></button>
-                        }
+                    @if(!cochera.deshabilitada){
+                    <button (click)="questionDisableGarage(cochera.id)"><img src="img/icons/prohibido.png"
+                            alt="Deshabilitar cochera"></button>
+                    } @else {
+                    <button (click)="questionAbleGarage(cochera.id)"><img src="img/icons/ok.png"
+                            alt="Habilitar cochera"></button>
+                    }
+                    @if(esAdmin){
+                    <button (click)="questionDeleteGarage(cochera.id)"><img src="img/icons/contenedor-de-basura.png"
+                            alt="Eliminar cochera"></button>
+                    }
                     }
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>
 
-@if(esAdmin){
+    @if(esAdmin){
     <button (click)="questionAddGarage()" class="boton-resaltado" id="agregar-cochera">+</button>
-}
+    }
 </main>

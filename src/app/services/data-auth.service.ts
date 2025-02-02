@@ -16,7 +16,7 @@ export class DataAuthService {
       if(!this.usuario) this.usuario = {
         username: '',
         token: token,
-        esAdmin: false
+        esAdmin: true
       }
       else this.usuario!.token = token;
     }
@@ -42,7 +42,7 @@ export class DataAuthService {
     this.usuario = {
         username: loginData.username,
         token: resJson.token,
-        esAdmin: false
+        esAdmin: true
     };
 
     localStorage.setItem("authToken", resJson.token);

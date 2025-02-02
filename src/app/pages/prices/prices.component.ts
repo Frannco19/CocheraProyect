@@ -14,7 +14,7 @@ export class PricesComponent {
   esAdmin = true
   dataRatesService = inject(DataRatesService)
   
-  UpdatePrice(rateId: string) {  // rateId para identificar la tarifa específica
+  UpdatePrice(rateId: string) {
     Swal.fire({
       title: "Actualizar precio de tarifa",
       html: `<input type="text" id="nuevoPrecio" class="swal2-input" placeholder="Ingrese nuevo precio">`,
